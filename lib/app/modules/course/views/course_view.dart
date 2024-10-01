@@ -16,10 +16,14 @@ class CourseView extends StatelessWidget {
           title: const Text(''), // Kosongkan judul
           backgroundColor: Colors.blue,
           bottom: const TabBar(
+            labelColor: Color.fromARGB(
+                255, 255, 255, 255), // Color of the selected tab's text
+            unselectedLabelColor: Color.fromARGB(255, 0, 0, 0),
+            indicatorColor: Colors.white,
             tabs: [
               Tab(text: 'Semua'),
               Tab(text: 'Matematika'),
-              Tab(text: 'Fisika'),
+              Tab(text: 'Fisika')
             ],
           ),
           flexibleSpace: Center(
