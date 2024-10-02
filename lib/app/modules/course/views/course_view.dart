@@ -26,25 +26,31 @@ class CourseView extends StatelessWidget {
               Tab(text: 'Fisika')
             ],
           ),
+
+          //searchbar
           flexibleSpace: Center(
-            child: SizedBox(
-              width: 300, // Atur lebar search bar
-              height: 40, // Atur tinggi search bar
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Cari Kursus...',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20), // Tambahkan padding top
+              child: SizedBox(
+                width: 300, // Atur lebar search bar
+                height: 40, // Atur tinggi search bar
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Cari Kursus...',
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(135, 255, 255, 255)),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none,
+                    ),
+                    prefixIcon: const Icon(Icons.search, color: Colors.blue),
                   ),
-                  prefixIcon: const Icon(Icons.search, color: Colors.blue),
+                  onChanged: (value) {
+                    // Logic
+                  },
                 ),
-                onChanged: (value) {
-                  // Logika pencarian (masih perlu ditambahkan jika ingin memfilter kursus)
-                },
               ),
             ),
           ),
