@@ -12,13 +12,17 @@ class LibraryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Chat'),
+        title: const Text(
+          'Daftar Chat',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue,
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // Logic for search can be added here
+              // logic
             },
           ),
         ],
@@ -36,11 +40,12 @@ class LibraryView extends StatelessWidget {
     );
   }
 
+  //container box user status
   Widget _buildProfileSection() {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.blue.shade100,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(12),
       ),
       child: const Row(
@@ -57,9 +62,15 @@ class LibraryView extends StatelessWidget {
             children: [
               Text(
                 'Username',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Color.fromARGB(255, 255, 255, 255)),
               ),
-              Text('Status: Online'),
+              Text(
+                'Status: Online',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
             ],
           ), //column
         ],
