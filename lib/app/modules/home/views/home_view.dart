@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(top: 35),
                   child: Text(
-                    'Selamat Datang di Ruang Edukasi',
+                    'Selamat Datang di Nexus Network Education.',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
@@ -63,7 +63,7 @@ class HomeView extends StatelessWidget {
                     subtitle: const Text('Kelas 10'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
-                      // Fungsi menuju detail sekolah
+                      // Fungsi
                     },
                   ),
                   ListTile(
@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                     subtitle: const Text('Kelas 9'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
-                      // Fungsi menuju detail sekolah
+                      // Fungsi
                     },
                   ),
                 ],
@@ -99,7 +99,7 @@ class HomeView extends StatelessWidget {
                     subtitle: const Text('Belajar dari nol!'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
-                      // Fungsi menuju detail kursus
+                      // Fungsi
                     },
                   ),
                   ListTile(
@@ -109,7 +109,7 @@ class HomeView extends StatelessWidget {
                         'Keterapan fisika dalam kehidupan sehari-hari'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
-                      // Fungsi menuju detail kursus
+                      // Fungsi
                     },
                   ),
                 ],
@@ -120,7 +120,7 @@ class HomeView extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Aksi untuk memulai belajar
+                  // Fungsi
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
