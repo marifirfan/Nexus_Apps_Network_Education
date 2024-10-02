@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CurvedNavigationBar(
         index: _selectedIndex.value,
         height: 60.0,
-        color: const Color.fromARGB(218, 40, 53, 236), // Warna latar belakang
+        color: const Color.fromARGB(255, 33, 150, 243), // Warna latar belakang
         buttonBackgroundColor: Colors.blue, // Warna tombol
         backgroundColor:
             Colors.white, // Ubah warna latar belakang navbar menjadi putih
