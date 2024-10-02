@@ -18,7 +18,7 @@ class CourseView extends StatelessWidget {
           bottom: const TabBar(
             labelColor: Color.fromARGB(
                 255, 255, 255, 255), // Color of the selected tab's text
-            unselectedLabelColor: Color.fromARGB(255, 0, 0, 0),
+            unselectedLabelColor: Color.fromARGB(255, 6, 0, 116),
             indicatorColor: Colors.white,
             tabs: [
               Tab(text: 'Semua'),
