@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -14,24 +15,23 @@ class ProfileView extends StatefulWidget {
 
 class ProfileViewState extends State<ProfileView> {
   final ProfileController controller = Get.put(ProfileController());
-  File? profileImage; // Variabel untuk menyimpan gambar yang dipilih
+  File? profileImage; // Icon profile
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profil Saya'),
-        backgroundColor: Colors.blue, // Warna biru untuk AppBar
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Get.to(() => SettingsView()); // Navigasi ke halaman pengaturan
-            },
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.blue, // Warna biru untuk AppBar
+      //   centerTitle: true,
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.settings),
+      //       onPressed: () {
+      //         Get.to(() => SettingsView()); // Navigasi ke halaman pengaturan
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,10 +39,10 @@ class ProfileViewState extends State<ProfileView> {
             // Header dengan background biru dan foto profil
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(top: 30, bottom: 20),
+              padding: const EdgeInsets.only(top: 80, bottom: 20),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.blue, Colors.lightBlueAccent],
+                  colors: [Colors.blue, Colors.blue],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -201,8 +201,7 @@ class ProfileViewState extends State<ProfileView> {
             // Tombol Edit Profil
             ElevatedButton(
               onPressed: () {
-                // controller
-                //     .getImageFromGallery(); // Memanggil fungsi untuk memilih gambar
+                Get.to(SettingsView());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
