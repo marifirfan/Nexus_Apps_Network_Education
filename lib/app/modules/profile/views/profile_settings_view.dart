@@ -17,8 +17,12 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pengaturan Profil'),
+        title: const Text(
+          'Pengaturan Profil',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,7 +63,10 @@ class SettingsView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: const Text('Ganti Foto Profil'),
+                child: const Text(
+                  'Ganti Foto Profil',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               const SizedBox(height: 30),
 
@@ -86,7 +93,7 @@ class SettingsView extends StatelessWidget {
               const SizedBox(height: 10),
               TextField(
                 controller: emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Masukkan email',
                 ),
