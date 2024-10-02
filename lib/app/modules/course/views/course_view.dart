@@ -13,7 +13,7 @@ class CourseView extends StatelessWidget {
       length: 3, // Jumlah filter
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(''), // Kosongkan judul
+          title: const Text(''), // 0 tittle
           backgroundColor: Colors.blue,
           bottom: const TabBar(
             labelColor: Color.fromARGB(
