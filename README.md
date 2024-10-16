@@ -1,6 +1,6 @@
 # Nexus Apps Network Education
 
-Author Muhammad Arif Irfan.
+Muhammad Arif Irfan.
 
 ## Description
 
@@ -10,3 +10,4 @@ Nexus Apps adalah platform bimbingan belajar berbasis Flutter yang dirancang unt
 
 Dengan antarmuka yang intuitif dan fitur interaktif, Nexus Apps memudahkan siswa untuk mengakses materi pelajaran, latihan soal, dan ujian secara efektif. Aplikasi ini didesain untuk mendorong kemajuan belajar siswa dengan pendekatan yang terstruktur dan teknologi terkini.
 
+![Example Image](https://drive.google.com/uc?id=17m2n7oySAC6-UgfzSmzO4Sy3UUcPwdMR)
