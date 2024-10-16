@@ -16,8 +16,9 @@ class LibraryView extends StatelessWidget {
           'Daftar Chat',
           style: TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue,
+        //
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -78,10 +79,12 @@ class LibraryView extends StatelessWidget {
     );
   }
 
+//placeholder
   Widget _buildChatList() {
     final chats = [
       {'name': 'User1', 'lastMessage': 'Halo!', 'time': '10:30 AM'},
       {'name': 'User2', 'lastMessage': 'Hai! Apa kabar?', 'time': '10:32 AM'},
+      {'name': 'User3', 'lastMessage': 'Sama-sama baik!', 'time': '10:35 AM'},
       {'name': 'User3', 'lastMessage': 'Sama-sama baik!', 'time': '10:35 AM'},
     ];
 
@@ -97,7 +100,8 @@ class LibraryView extends StatelessWidget {
             ),
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const Icon(Icons.delete, color: Colors.white),
+            child: const Icon(Icons.delete,
+                color: Color.fromARGB(255, 255, 255, 255)),
           ),
           confirmDismiss: (direction) async {
             return await _showConfirmationDialog(context, chats[index]['name']);
@@ -244,7 +248,7 @@ class ChatDetailView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: const [
                   BoxShadow(
-                    color: Colors.black26,
+                    color: Color.fromARGB(255, 255, 0, 0),
                     blurRadius: 4.0,
                     offset: Offset(2, 2),
                   ),
@@ -292,7 +296,7 @@ class ChatDetailView extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey.shade200,
+                fillColor: Colors.red,
               ),
             ),
           ),

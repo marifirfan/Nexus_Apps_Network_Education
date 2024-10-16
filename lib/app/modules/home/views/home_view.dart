@@ -16,17 +16,15 @@ class HomeView extends StatelessWidget {
           children: [
             // Header dengan judul dan deskripsi
             Container(
-              height: 150, // Mengurangi tinggi Container menjadi 150
+              height: 150,
               padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
-                color: Colors.blue, // Ganti gradient dengan warna solid
+                color: Colors.blue,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0), // Sudut kiri bawah melengkung
-                  bottomRight:
-                      Radius.circular(300), // Sudut kanan bawah melengkung
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(300),
                 ),
               ),
-
               child: const Center(
                 child: Padding(
                   padding: EdgeInsets.only(top: 35),
