@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:education_apps/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:image_picker/image_picker.dart';
 import 'dart:io'; // Untuk menangani file gambar dari galeri
 import '../controllers/Profile_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,22 +18,34 @@ class ProfileView extends StatefulWidget {
 class ProfileViewState extends State<ProfileView> {
   final ProfileController controller = Get.put(ProfileController());
   File? profileImage; // Icon profile
+  String userName = '';
+  String userSchool = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  void fetchUserData() async {
+    User? user = FirebaseAuth.instance.currentUser; // Get current user
+    if (user != null) {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection('users') // Replace with your collection name
+          .doc(user.uid)
+          .get();
+      if (doc.exists) {
+        setState(() {
+          userName = doc['name']; // Adjust field names based on your Firestore
+          userSchool = doc['school'];
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.blue, // Warna biru untuk AppBar
-      //   centerTitle: true,
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(Icons.settings),
-      //       onPressed: () {
-      //         Get.to(() => SettingsView()); // Navigasi ke halaman pengaturan
-      //       },
-      //     ),
-      //   ],
-      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,18 +66,15 @@ class ProfileViewState extends State<ProfileView> {
                   Obx(
                     () => GestureDetector(
                       onTap: () {
-                        controller
-                            .getImageFromGallery(); // Memanggil fungsi untuk memilih gambar
+                        controller.getImageFromGallery(); // Memanggil fungsi untuk memilih gambar
                       },
                       child: CircleAvatar(
                         radius: 60,
-                        backgroundImage:
-                            controller.selectedImagePath.value.isNotEmpty
-                                ? FileImage(File(controller.selectedImagePath
-                                    .value)) // Gambar dari galeri
-                                : const NetworkImage(
-                                    'https://www.example.com/profile_pic_url', // URL default gambar profil
-                                  ) as ImageProvider,
+                        backgroundImage: controller.selectedImagePath.value.isNotEmpty
+                            ? FileImage(File(controller.selectedImagePath.value)) // Gambar dari galeri
+                            : const NetworkImage(
+                                'https://www.example.com/profile_pic_url', // URL default gambar profil
+                              ) as ImageProvider,
                         child: controller.selectedImagePath.value.isEmpty
                             ? const Icon(
                                 Icons.camera_alt,
@@ -77,18 +86,18 @@ class ProfileViewState extends State<ProfileView> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Muhammad Arif Irfan',
-                    style: TextStyle(
+                  Text(
+                    userName.isNotEmpty ? userName : 'Loading...',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    'Kelas 10 | SMAN 1 Jakarta',
-                    style: TextStyle(
+                  Text(
+                    userSchool.isNotEmpty ? userSchool : 'Loading...',
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 16,
                     ),
@@ -200,16 +209,13 @@ class ProfileViewState extends State<ProfileView> {
             ),
             const SizedBox(height: 30),
             // Tombol Edit Profil
-
             ElevatedButton(
               onPressed: () {
-                Get.to(SettingsView());
+                Get.to(EditProfileView());
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Colors.blue, // Warna biru untuk tombol Edit Profil
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.blue, // Warna biru untuk tombol Edit Profil
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -222,7 +228,7 @@ class ProfileViewState extends State<ProfileView> {
               ),
             ),
             const SizedBox(height: 20),
-// Tombol Logout
+            // Tombol Logout
             ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut(); // Logout dari Firebase
@@ -230,8 +236,7 @@ class ProfileViewState extends State<ProfileView> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red, // Warna merah untuk tombol Logout
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),

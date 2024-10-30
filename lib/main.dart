@@ -1,3 +1,4 @@
+import 'package:education_apps/app/modules/profile/views/profile_settings_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:education_apps/provider/auth_provider.dart';
@@ -6,7 +7,7 @@ import 'package:education_apps/app/modules/home/views/home_view.dart';
 import 'package:education_apps/screen/login_screen.dart';
 import 'package:education_apps/app/modules/course/views/course_view.dart';
 import 'package:education_apps/app/modules/news/views/news_view_.dart';
-import 'package:education_apps/app/modules/profile/views/profile_view.dart';
+import 'package:education_apps/app/modules/profile/views/Profile_view.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -14,10 +15,9 @@ import 'firebase_options.dart';
 import 'package:get/get.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-// Handler untuk notifikasi background
+// Handler for background notifications
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message: ${message.messageId}');
-  // Tambahkan logika untuk menampilkan notifikasi di sini jika perlu
 }
 
 void main() async {
@@ -26,14 +26,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Mengatur handler untuk pesan background
+  // Set up background message handler
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  // Mengatur handler untuk pesan saat aplikasi pertama kali diluncurkan
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print('A new onMessageOpenedApp event was published!');
-    // Logika untuk membuka halaman tertentu berdasarkan payload notifikasi
-  });
 
   runApp(const MyApp());
 }
@@ -46,9 +40,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProfider()),
-        ChangeNotifierProvider(create: (_) => ImagePickProvider())
+        ChangeNotifierProvider(create: (_) => ImagePickProvider()),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp( // Changed from MaterialApp to GetMaterialApp
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -97,20 +91,20 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _setupFirebaseMessaging() async {
-    // Mendengarkan pesan saat aplikasi berada di foreground
+    // Listen for messages while the app is in the foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Message received in foreground: ${message.notification?.title}");
-      // Tampilkan dialog notifikasi saat aplikasi aktif
+      // Show a dialog notification when the app is active
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(message.notification?.title ?? "Notifikasi"),
-            content: Text(message.notification?.body ?? "Ada pesan baru!"),
+            title: Text(message.notification?.title ?? "Notification"),
+            content: Text(message.notification?.body ?? "You have a new message!"),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Tutup'),
+                child: const Text('Close'),
               ),
             ],
           );
@@ -118,11 +112,11 @@ class _MainPageState extends State<MainPage> {
       );
     });
 
-    // Mendengarkan token FCM
+    // Listen for FCM token
     String? token = await FirebaseMessaging.instance.getToken();
     print("FCM Registration Token: $token");
 
-    // Mendengarkan perubahan token FCM
+    // Listen for changes in FCM token
     FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
       print("New FCM Registration Token: $newToken");
     });
