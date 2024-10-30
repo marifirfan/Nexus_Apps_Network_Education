@@ -1,9 +1,11 @@
 // ignore_for_file: file_names
+import 'package:education_apps/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'dart:io'; // Untuk menangani file gambar dari galeri
 import '../controllers/Profile_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'profile_settings_view.dart'; // Impor SettingsView
 
 class ProfileView extends StatefulWidget {
@@ -198,7 +200,7 @@ class ProfileViewState extends State<ProfileView> {
             ),
             const SizedBox(height: 30),
             // Tombol Edit Profil
-            // Tombol Edit Profil
+
             ElevatedButton(
               onPressed: () {
                 Get.to(SettingsView());
@@ -222,8 +224,9 @@ class ProfileViewState extends State<ProfileView> {
             const SizedBox(height: 20),
 // Tombol Logout
             ElevatedButton(
-              onPressed: () {
-                // Fungsi logout
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut(); // Logout dari Firebase
+                Get.offAll(LoginScreen()); // Navigasi kembali ke layar login
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red, // Warna merah untuk tombol Logout
@@ -240,7 +243,6 @@ class ProfileViewState extends State<ProfileView> {
                 ),
               ),
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),

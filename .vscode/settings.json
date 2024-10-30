@@ -1,3 +1,4 @@
 {
-    "explorer.compactFolders": false
+    "explorer.compactFolders": false,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
