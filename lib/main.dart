@@ -13,7 +13,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -39,6 +38,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
+  
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// MainPage with Bottom Navigation Bar
+// MainPage with Google BottomNavigationBar
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -79,6 +79,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final RxInt _selectedIndex = 0.obs;
+
   final List<Widget> _pages = [
     HomeView(),
     CourseView(),
@@ -145,22 +146,35 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => _pages[_selectedIndex.value]),
-      bottomNavigationBar: CurvedNavigationBar(
-        index: _selectedIndex.value,
-        height: 60.0,
-        color: const Color.fromARGB(255, 33, 150, 243),
-        buttonBackgroundColor: Colors.blue,
-        backgroundColor: Colors.white,
-        animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 300),
-        items: const <Widget>[
-          Icon(Icons.home, size: 30, color: Colors.white),
-          Icon(Icons.school, size: 30, color: Colors.white),
-          Icon(Icons.newspaper, size: 30, color: Colors.white),
-          Icon(Icons.person, size: 30, color: Colors.white),
-        ],
-        onTap: (index) => _selectedIndex.value = index,
-      ),
+      bottomNavigationBar: Obx(() {
+        return BottomNavigationBar(
+          currentIndex: _selectedIndex.value,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            _selectedIndex.value = index;
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: 'Courses',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.newspaper),
+              label: 'News',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        );
+      }),
     );
   }
 }

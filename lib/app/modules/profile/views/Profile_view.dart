@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:education_apps/app/modules/profile/views/TopUpScreen.dart';
 import 'package:education_apps/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class ProfileViewState extends State<ProfileView> {
   File? profileImage; // Icon profile
   String userName = '';
   String userSchool = '';
+  String userBalance = ''; // Tambahkan variable untuk saldo
 
   @override
   void initState() {
@@ -31,13 +33,14 @@ class ProfileViewState extends State<ProfileView> {
     User? user = FirebaseAuth.instance.currentUser; // Get current user
     if (user != null) {
       DocumentSnapshot doc = await FirebaseFirestore.instance
-          .collection('users') // Replace with your collection name
+          .collection('users') // Ganti dengan nama koleksi Anda
           .doc(user.uid)
           .get();
       if (doc.exists) {
         setState(() {
-          userName = doc['name']; // Adjust field names based on your Firestore
+          userName = doc['name']; // Sesuaikan dengan field di Firestore
           userSchool = doc['school'];
+          userBalance = doc['balance'].toString(); // Ambil saldo pengguna
         });
       }
     }
@@ -66,15 +69,18 @@ class ProfileViewState extends State<ProfileView> {
                   Obx(
                     () => GestureDetector(
                       onTap: () {
-                        controller.getImageFromGallery(); // Memanggil fungsi untuk memilih gambar
+                        controller
+                            .getImageFromGallery(); // Memanggil fungsi untuk memilih gambar
                       },
                       child: CircleAvatar(
                         radius: 60,
-                        backgroundImage: controller.selectedImagePath.value.isNotEmpty
-                            ? FileImage(File(controller.selectedImagePath.value)) // Gambar dari galeri
-                            : const NetworkImage(
-                                'https://www.example.com/profile_pic_url', // URL default gambar profil
-                              ) as ImageProvider,
+                        backgroundImage:
+                            controller.selectedImagePath.value.isNotEmpty
+                                ? FileImage(File(controller.selectedImagePath
+                                    .value)) // Gambar dari galeri
+                                : const NetworkImage(
+                                    'https://www.example.com/profile_pic_url', // URL default gambar profil
+                                  ) as ImageProvider,
                         child: controller.selectedImagePath.value.isEmpty
                             ? const Icon(
                                 Icons.camera_alt,
@@ -102,34 +108,40 @@ class ProfileViewState extends State<ProfileView> {
                       fontSize: 16,
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Progress Belajar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Progress Belajar',
-                    style: TextStyle(
+                  const SizedBox(height: 10),
+                  // Menambahkan saldo pengguna
+                  Text(
+                    userBalance.isNotEmpty
+                        ? 'Saldo Anda: Rp $userBalance' // Menampilkan saldo
+                        : 'Saldo: Loading...',
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  LinearProgressIndicator(
-                    value: 0.7, // Progress kursus (70%)
-                    backgroundColor: Colors.grey[300],
-                    color: Colors.blue, // Warna biru untuk progress bar
-                    minHeight: 8,
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    '70% selesai dari Kursus Matematika',
-                    style: TextStyle(fontSize: 16),
+                  // Tombol Top Up
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Navigasi ke halaman Top Up
+                      Get.to(() => TopUpScreen());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.green, // Warna hijau untuk tombol Top Up
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: const Text(
+                      'Top Up',
+                      style: TextStyle(
+                        color: Colors.white, // Warna teks Top Up
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -214,8 +226,10 @@ class ProfileViewState extends State<ProfileView> {
                 Get.to(EditProfileView());
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Warna biru untuk tombol Edit Profil
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor:
+                    Colors.blue, // Warna biru untuk tombol Edit Profil
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -236,7 +250,8 @@ class ProfileViewState extends State<ProfileView> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red, // Warna merah untuk tombol Logout
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),

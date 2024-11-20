@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.8.4+9
+  image_picker: ^1.1.2
   curved_navigation_bar: ^1.0.3
 
   # The following adds the Cupertino Icons font to your application.
@@ -47,6 +47,15 @@ dependencies:
   flutter_local_notifications: ^17.2.4
   cloud_firestore: ^5.4.4
   firebase_storage: ^12.3.4
+  awesome_bottom_bar: ^1.1.2
+  audioplayers: ^6.1.0
+  video_player: ^2.6.1
+  speech_to_text: ^7.0.0
+  permission_handler: ^10.0.0
+  camera: ^0.10.0+4
+  
+  
+
 
 
 dev_dependencies:
